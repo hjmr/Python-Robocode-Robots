@@ -3,7 +3,7 @@
 
 from robot import Robot #Import a base Robot
 
-class MyRobot(Robot): #Create a Robot
+class RunAway(Robot): #Create a Robot
     
     def init(self):    #To initialyse your robot
         
