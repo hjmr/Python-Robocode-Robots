@@ -3,9 +3,10 @@
 
 from robot import Robot
 import math
+import random
 
 
-class yuki(Robot):
+class kamikaze(Robot):
 
     def init(self):
         # 特攻機らしい「黒・赤」のカラーリング
@@ -27,7 +28,8 @@ class yuki(Robot):
         # 敵が見つからないときは、高速回転して探す
         self.target_locked = False
         self.stop()
-        self.turn(50)
+        self.move(100)
+        self.turn(random.randint(-90,90))
         self.gunTurn(50)
         self.stop()
 
@@ -61,18 +63,6 @@ class yuki(Robot):
         # 敵の位置まで移動（+50して確実にぶつかるようにする）
         self.move(dist + 50)
 
-        # 4. 道連れ射撃ロジック（ここが重要）
-        if dist < 40:
-            # ほぼ接触しているなら、最大火力(10)で発射
-            # 自分のHPを10削るが、当たれば20回復し、相手に30与える
-            self.fire(10)
-            self.rPrint("DIE!!!")
-        elif dist < 100:
-            # 近距離なら高火力
-            self.fire(5)
-        elif dist < 300:
-            # 中距離なら牽制（近づくためのHPを温存したいので弱め）
-            self.fire(1)
 
         # 遠距離では撃たない（HP温存して突撃するため）
 
@@ -93,8 +83,8 @@ class yuki(Robot):
     def onHitWall(self):
         """壁にぶつかったら、少し下がって向き直る"""
         self.stop()
-        self.move(-50)
-        self.turn(100)  # 大きく回って壁から脱出
+        self.move(-300)
+        self.turn(80)  # 大きく回って壁から脱出
         self.stop()
 
     def onHitByBullet(self, bulletBotId, bulletBotName, bulletPower):
